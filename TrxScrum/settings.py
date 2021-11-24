@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import environ
 
-root = environ.Path(start=__file__) - 2
+root = environ.Path(start=__file__) - 3
 env = environ.Env()
 env.read_env('.env')
 
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #my apps
+    #'users',
 ]
 
 MIDDLEWARE = [
@@ -79,12 +82,12 @@ WSGI_APPLICATION = 'TrxScrum.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db('DEV_DB_URL')
 }
 
+"""import dj_database_url
+DATABASES['default'] = dj_database_url.parse(env.db('DEV_DB_URL'), conn_max_age=600, ssl_require=True)
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
