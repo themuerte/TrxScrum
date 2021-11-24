@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 root = environ.Path(start=__file__) - 3
 env = environ.Env()
@@ -30,7 +31,9 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+LOGOUT_REDIRECT_URL = "/"
 
 
 # Application definition
@@ -43,8 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #my apps
-    #'users',
+    #MY APPS
+    'apps.users.apps.UsersConfig',
+
+    #THIRD PARTY APPS
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +68,9 @@ ROOT_URLCONF = 'TrxScrum.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),   
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
