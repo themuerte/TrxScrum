@@ -22,3 +22,6 @@ def register(request):
     }
 
     return render(request, 'users/register.html', queryset)
+
+def reg(request):
+    pass
