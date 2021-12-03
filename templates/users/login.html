@@ -13,10 +13,16 @@
 
     <form action="" method="post" class="form">
         {% csrf_token %}
-        {% bootstrap_form form %}
-
-        <label><a href="{% url 'register' %}">You do not have an account</a></label>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Login</h5>
+                {% bootstrap_form form %}
+                <label><a href="{% url 'register' %}">You do not have an account</a></label>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+        
     </form>
 
 {% endblock %}
