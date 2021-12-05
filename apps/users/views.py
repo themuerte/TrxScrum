@@ -7,21 +7,29 @@ from apps.users.forms import RegisterForm
 
 # Create your views here.
 
-def index(request):
-    form = AuthenticationForm()
-    queryset = {
-        'form':form
-    }
-
-    return render(request,'users/login.html', queryset)
+def login(request):
+    
+    if request.method == "GET":
+        form = AuthenticationForm()
+        queryset = {
+            'form':form
+        }
+        return render(request,'users/login.html', queryset)
+    
+    elif request.method == "POST":
+        pass
+    
+    
 
 def register(request):
-    form = RegisterForm()
-    queryset = {
-        'form':form
-    }
+    
+    if request.method == "GET":
+        form = RegisterForm()
+        queryset = {
+            'form':form
+        }
 
-    return render(request, 'users/register.html', queryset)
+        return render(request, 'users/register.html', queryset)
 
-def reg(request):
-    pass
+    elif request.method == "POST":
+        pass
