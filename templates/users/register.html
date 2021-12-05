@@ -11,9 +11,10 @@
 
 {% block body %}
 
-    <form action="{% url 'reg' %}" method="post" class="form">
+    <form action="" method="post" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
+        {% bootstrap_form form2 %}
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

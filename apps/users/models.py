@@ -6,6 +6,6 @@ from django.contrib.auth.models import User
 class Datos(models.Model):
     #hacer la llave foreana para el dato del telefono 
     usuario = models.OneToOneField(User, models.PROTECT, blank=False, null=False)
-    telefono = models.IntegerField()
+    phone = models.IntegerField()
 
 
