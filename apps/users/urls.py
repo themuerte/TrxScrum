@@ -5,5 +5,6 @@ from . import views
 
 urlpatterns = [
     path("", views.login, name="login"),
+    path("logout/",  LogoutView.as_view(next_page=settings.LOGOUT_REDIRECT_URL), name="logout"), #necesita cmabiarse a la pagina que se redirija - mirar lo del redirect
     path("register/", views.register, name="register"),
 ]
