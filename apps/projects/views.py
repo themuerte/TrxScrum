@@ -10,3 +10,20 @@ def index(request):
 
     elif request.method == "POST":
         pass
+
+def my_projects(request):
+    if request.method == "GET":
+        queryset = {}
+        return render(request, 'projects/myProjects.html', queryset)
+    
+    elif request.method == "POST":
+        pass
+
+def my_teams(request):
+    if request.method == "GET":
+        queryset = {}
+        return render(request, 'projects/myTeams.html', queryset)
+    
+    elif request.method == "POST":
+        pass
+

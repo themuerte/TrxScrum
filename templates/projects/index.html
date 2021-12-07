@@ -26,8 +26,8 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">My Projects</a></li>
-                    <li><a class="dropdown-item" href="#">My Team</a></li>
+                    <li><a class="dropdown-item" href="{% url 'my_projects' %}">My Projects</a></li>
+                    <li><a class="dropdown-item" href="{% url 'my_teams' %}">My Team</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -53,6 +53,7 @@
  
 
     <h3>Projects</h3>
+    <button>agregar</button>
 
     <h3>Team</h3>
 

@@ -8,6 +8,7 @@ django-bootstrap-v5 = "*"
 psycopg2-binary = "*"
 dj-database-url = "*"
 django-environ = "*"
+pillow = "*"
 
 [dev-packages]
 
