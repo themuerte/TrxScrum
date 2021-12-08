@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Data(models.Model):
     #hacer la llave foreana para el dato del telefono 
-    user = models.OneToOneField(User, models.PROTECT, blank=False, null=False)
-    phone = models.IntegerField()
+    user = models.OneToOneField(User, models.PROTECT, blank=False, null=False, verbose_name="Usuario")
+    phone = models.IntegerField(verbose_name="Telefono")
 
 
