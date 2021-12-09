@@ -4,7 +4,8 @@ from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
-from apps.users.forms import RegisterForm
+from apps.users.forms import RegisterForm, RegisterForm2
+from apps.users.models import Data
 
 # Create your views here.
 
@@ -20,9 +21,6 @@ def login(request):
     elif request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-
-        print('username: '+ username)
-        print('password: '+ password)
 
         user = authenticate(request ,username=username, password=password)
 
@@ -42,8 +40,10 @@ def register(request):
     
     if request.method == "GET":
         form = RegisterForm()
+        form2 = RegisterForm2()
         queryset = {
             'form':form,
+            'form2': form2,
         }
 
         return render(request, 'users/register.html', queryset)
@@ -51,12 +51,18 @@ def register(request):
     elif request.method == "POST":
 
         form = RegisterForm(request.POST)
-        if form.is_valid():
+        form2 = RegisterForm2(request.POST, request.FILES)
+
+        if form.is_valid() and form2.is_valid():
             user = User.objects.create_user(**form.cleaned_data)
             user.save()
+            data = Data.objects.create(user=user, **form2.cleaned_data)
+            data.save()
         else:
             print("error!!")
             print(request.POST)
+            print(form.errors)
+            print(form2.errors)
 
         print("POST method")
         return redirect("login")
