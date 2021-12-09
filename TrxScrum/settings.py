@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.projects.apps.ProjectsConfig', 
     'apps.users.apps.UsersConfig',
     'apps.teams.apps.TeamsConfig',
+    'apps.sprints.apps.SprintsConfig',
 
     #THIRD PARTY APPS
     'bootstrap5',
