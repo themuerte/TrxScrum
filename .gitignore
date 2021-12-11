@@ -1,6 +1,9 @@
 #.env claves secretas
 .env
 
+#launch.json debuguer
+launch.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

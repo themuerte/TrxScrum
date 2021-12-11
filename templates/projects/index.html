@@ -21,8 +21,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{% static 'img/usuario.png' %}" alt="image not found" width="30" height="24">
+                <a class="nav-link dropdown-toggle p-1" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {% if user.data.logo %}
+                        <img src="{{ user.data.logo.url }}" alt="image not found" width="30" height="24">
+                    {% else %}
+                        <img src="{% static 'img/usuario.png' %}" alt="image not found" width="30" height="24">
+                    {% endif %}                    
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
@@ -50,13 +54,72 @@
     </div>
     </nav>
 
+    <div class="container-sm">
+        
+        <div class="row">
+            <div class="pull-left">
+                <h3>Projects</h3>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" 
+                data-urlpage="{% url 'create_project' %}"
+                onclick="loadContent(this)" ><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+                </div>
+        </div>
+    
+        
+    </div>
  
-
-    <h3>Projects</h3>
-    <button>agregar</button>
+    
 
     <h3>Team</h3>
+    <button type="button" class="btn btn-secondary"><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
 
     <h3>Calendar</h3>
+    <button type="button" class="btn btn-secondary"><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modalTemplate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTemplateLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalTemplateLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="contenido-modal-template">
+            
+            </div>
+            
+        </div>
+        </div>
+    </div>
+
+    <script>
+        const myModal = new bootstrap.Modal(document.getElementById('modalTemplate'), [])
+        const contentModel = document.querySelector("#contenido-modal-template")
+        const loadContent= (element) =>{
+            Swal.showLoading()
+            let url = element.dataset.urlpage;
+            fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                contentModel.innerHTML = data
+                const form = contentModel.querySelector("form")
+                if(form){form.setAttribute("action", url)}
+                Swal.close()
+                myModal.show()
+            });
+        }
+    </script>
 
 {% endblock %}

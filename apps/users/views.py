@@ -1,5 +1,6 @@
 from django.http.request import QueryDict
 from django.shortcuts import render, redirect
+from django.contrib.auth import login as login_django
 from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -26,15 +27,14 @@ def login(request):
 
         if user is not None:
             print("esta autenticado")
-            return render(request, 'projects/index.html')
+            login_django(request, user)
+            return redirect('home')
         else:
             return redirect('login')
 
 def logout(request):
     if request.method=="POST":
         logout(request)
-    
-    
 
 def register(request):
     
