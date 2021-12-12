@@ -1,8 +1,6 @@
 from django.urls import path
-from django.contrib.auth.views import LogoutView
-from django.conf import settings
 from . import views
 
 urlpatterns = [
-    
+    path("my_teams/", views.my_teams, name="my_teams"),
 ]

@@ -64,6 +64,7 @@
                 <button type="button" class="btn btn-primary" 
                 data-urlpage="{% url 'create_project' %}"
                 onclick="loadContent(this)" ><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
+                <button id="hola" >hola</button>
             </div>
         </div>
         <div class="row">
@@ -86,7 +87,6 @@
     <button type="button" class="btn btn-secondary"><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
 
     <h3>Calendar</h3>
-    <button type="button" class="btn btn-secondary"><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
     
     <!-- Modal -->
     <div class="modal fade" id="modalTemplate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTemplateLabel" aria-hidden="true">
@@ -120,6 +120,7 @@
                 myModal.show()
             });
         }
+
     </script>
 
 {% endblock %}

@@ -1,0 +1,11 @@
+.main-section{
+    margin: 0 auto;
+    margin-top: 25%;
+    padding: 0 20px;
+}
+
+.modal-content{
+    background-color: cornsilk;
+    opacity: .75;
+    padding: 0 20px;
+}

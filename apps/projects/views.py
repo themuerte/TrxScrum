@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from apps.projects import forms
 
 from apps.projects.models import Project, ProductBacklog, Role
-from apps.users.models import Data
+from apps.projects.forms import ProjectForm
 
 
 # Create your views here.
@@ -29,21 +29,13 @@ def my_projects(request):
     elif request.method == "POST":
         pass
 
-#mirar si cambiar esta vista a la apps de teams
-def my_teams(request):
-    if request.method == "GET":
-        queryset = {}
-        return render(request, 'projects/myTeams.html', queryset)
-    
-    elif request.method == "POST":
-        pass
 
 class ProjectCreation(CreateView):
     model = Project
-    success_url = reverse_lazy("home")
+    form_class = ProjectForm
     template_name = 'projects/create_project.html'
-    exclude = ('user', )
-
+    success_url = reverse_lazy("home")
+    
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.user = self.request.user
