@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Team(models.Model):
+    user = models.ForeignKey(User, models.CASCADE, blank=False, related_name="teams",verbose_name="Usuario", default="")
     name = models.TextField(blank=False, null=False, verbose_name="Nombre")
-    creation_date = models.DateField(auto_created=True, verbose_name="Creacion del equipo")
-    logo = models.ImageField(upload_to="LogoTeams", null=True)
+    creation_date = models.DateField(auto_now_add=True, verbose_name="Creacion del equipo")
+    logo = models.ImageField(upload_to="LogoTeams", blank=True,null=True)
     is_active = models.BooleanField(default=True, verbose_name="¿Equipo activo?")
 
 class TeamUser(models.Model):

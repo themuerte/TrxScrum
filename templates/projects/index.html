@@ -12,47 +12,6 @@
 
 {% block body %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <h2>TrxScrum</h2>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle p-1" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {% if user.data.logo %}
-                        <img src="{{ user.data.logo.url }}" alt="image not found" width="30" height="24">
-                    {% else %}
-                        <img src="{% static 'img/usuario.png' %}" alt="image not found" width="30" height="24">
-                    {% endif %}                    
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                    <li><a class="dropdown-item" href="{% url 'my_projects' %}">My Projects</a></li>
-                    <li><a class="dropdown-item" href="{% url 'my_teams' %}">My Team</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Projects</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Teams</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Calendar</a>
-            </li>
-            
-        </ul>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item navbar-brand order-md-last">
-                <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
-            </li>
-        </ul>
-        </div>
-    </div>
-    </nav>
 
     <div class="container-sm">
         
@@ -64,28 +23,28 @@
                 <button type="button" class="btn btn-primary" 
                 data-urlpage="{% url 'create_project' %}"
                 onclick="loadContent(this)" ><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
-                <button id="hola" >hola</button>
             </div>
         </div>
         <div class="row">
             <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
+                
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
                 </div>
-        </div>
-    
-        
+        </div>        
     </div>
  
     
 
     <h3>Team</h3>
-    <button type="button" class="btn btn-secondary"><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
-
+        <button type="button" class="btn btn-primary" 
+        data-urlpage="{% url 'create_team' %}"
+        onclick="loadContent(this)" ><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
+    
+    
     <h3>Calendar</h3>
     
     <!-- Modal -->
@@ -93,7 +52,6 @@
         <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="modalTemplateLabel">Modal title</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="contenido-modal-template">
@@ -120,7 +78,6 @@
                 myModal.show()
             });
         }
-
     </script>
 
 {% endblock %}
