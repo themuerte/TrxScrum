@@ -12,12 +12,11 @@
 
 {% block body %}
 
-
-    <div class="container-sm">
-        
+    <!--Parte de Projects-->
+    <div class="container">
         <div class="row">
             <div class="pull-left">
-                <h3>Projects</h3>
+                <h3 id="project">Projects</h3>
             </div>
             <div class="col">
                 <button type="button" class="btn btn-primary" 
@@ -26,26 +25,113 @@
             </div>
         </div>
         <div class="row">
-            <div class="card" style="width: 18rem;">
-                
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-                </div>
-        </div>        
-    </div>
- 
-    
+            {% for project in projects%}
+            {% if project.user == user %}
+                <h5>my project</h5>
+                <div class="card col-12 col-md-6 col-lg-4">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ project.name }}</h5>
+                    
+                    <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+                    <p class="card-text">{{ project.description }}</p>
 
-    <h3>Team</h3>
-        <button type="button" class="btn btn-primary" 
-        data-urlpage="{% url 'create_team' %}"
-        onclick="loadContent(this)" ><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ projeect.state }}</h6>
+
+                    <button type="button" class="btn btn-warning" data-urlpage="{% url 'update_project' project.pk %}"
+                    onclick="loadContent(this)">Edit</button>
+                    <button type="button" class="btn btn-danger" data-urlpage="{% url 'delete_project' project.pk %}"
+                    onclick="loadContent(this)">Delete</button>
+                    <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_project' project.pk %}"
+                    onclick="loadContent(this)">Info</button>
+
+                    </div>
+                </div>
+                {% else %}
+                <div class="card col-12 col-md-6 col-lg-4">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ project.name }}</h5>
+                    
+                    <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+                    <p class="card-text">{{ project.description }}</p>
+
+                    <h6 class="card-subtitle mb-2 text-muted">{{ projeect.state }}</h6>
+
+                    <button type="button" class="btn btn-warning" data-urlpage="{% url 'update_project' project.pk %}"
+                    onclick="loadContent(this)">Edit</button>
+                    <button type="button" class="btn btn-danger" data-urlpage="{% url 'delete_project' project.pk %}"
+                    onclick="loadContent(this)">Delete</button>
+                    <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_project' project.pk %}"
+                    onclick="loadContent(this)">Info</button>
+
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %} 
+        </div>
+    </div>
+
     
-    
-    <h3>Calendar</h3>
+    <!--Parte de Teams-->
+    <div class="container">
+        <div class="row">
+            <div class="pull-left">
+                <h3 id="team">Team</h3>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" 
+                data-urlpage="{% url 'create_team' %}"
+                onclick="loadContent(this)" ><img src="{% static 'img/boton-agregar.png' %}" alt="Not file" width="20px" height="20px"></button>
+            </div>
+        </div>
+        <div class="row">
+            {% for team in teams%}
+                {% if team.user == user %}
+                    <h5>my team</h5>
+                    <div class="card col-12 col-md-6 col-lg-4">
+                        {% if team.logo %}
+                            <img src="{{ team.logo.url }}" class="card-image-top" alt="{{team.name}}">
+                        {% else %}
+                            <img src="" class="card-image-top" alt="{{team.name}}">
+                        {% endif %}
+                        <div class="card-body">
+                        <h5 class="card-title">{{ team.name }}</h5>
+
+                        <button type="button" class="btn btn-warning" data-urlpage="{% url 'update_team' team.pk %}"
+                        onclick="loadContent(this)">Edit</button>
+                        <button type="button" class="btn btn-danger" data-urlpage="{% url 'delete_team' team.pk %}"
+                        onclick="loadContent(this)">Delete</button>
+                        <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_team' team.pk %}"
+                        onclick="loadContent(this)">Info</button>
+
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card col-12 col-md-6 col-lg-4">
+                        {% if team.logo %}
+                            <img src="{{ team.logo.url }}" class="card-image-top" alt="{{team.name}}">
+                        {% else %}
+                            <img src="" class="card-image-top" alt="{{team.name}}">
+                        {% endif %}
+                        <div class="card-body">
+                        <h5 class="card-title">{{ team.name }}</h5>
+                        
+                        {% if team.user == user %}
+                            <button type="button" class="btn btn-warning" data-urlpage="{% url 'update_team' team.pk %}"
+                            onclick="loadContent(this)">Edit</button>
+                            <button type="button" class="btn btn-danger" data-urlpage="{% url 'delete_team' team.pk %}"
+                            onclick="loadContent(this)">Delete</button>
+                            <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_team' team.pk %}"
+                            onclick="loadContent(this)">Info</button>
+                        {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %} 
+        </div>
+    </div>
+
+
+    <h3 id="calendar">Calendar</h3>
     
     <!-- Modal -->
     <div class="modal fade" id="modalTemplate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTemplateLabel" aria-hidden="true">

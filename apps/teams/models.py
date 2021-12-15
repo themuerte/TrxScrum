@@ -10,6 +10,9 @@ class Team(models.Model):
     logo = models.ImageField(upload_to="LogoTeams", blank=True,null=True)
     is_active = models.BooleanField(default=True, verbose_name="¿Equipo activo?")
 
+    def __str__(self):
+        return self.name
+
 class TeamUser(models.Model):
     state_choices = [
         ('AC','Active'),
@@ -21,6 +24,9 @@ class TeamUser(models.Model):
     team = models.ForeignKey(Team, models.CASCADE, blank=False, null=False, related_name="team_userT",verbose_name="Equipo")
     post = models.TextField(blank=False, null=False, verbose_name="Posición")
     state = models.CharField(max_length=2, choices=state_choices, verbose_name="Estado") #cuando se cree su estado sera waiting
+
+    def __str__(self):
+        return self.team.name +"- "+ self.user.username +" ("+ self.post + ") " + self.state
 
 
 

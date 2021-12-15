@@ -1,5 +1,6 @@
-from django.http.request import QueryDict
+from django.http import request
 from django.shortcuts import render, redirect
+from django.urls.base import reverse_lazy
 from django.contrib.auth import login as login_django
 from django.contrib.auth import *
 from django.contrib.auth.models import User
@@ -7,6 +8,8 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from apps.users.forms import RegisterForm, RegisterForm2
 from apps.users.models import Data
+
+from django.views.generic import UpdateView
 
 # Create your views here.
 
@@ -67,7 +70,13 @@ def register(request):
         print("POST method")
         return redirect("login")
 
-def profile(request):
-    if request.method == "GET":
-        queryset = {} #aqui deberia cambiar los datos del usuario
-        return render(request, 'users/profile.html', queryset)
+
+class UserUpdateView(UpdateView):
+    model = User
+    template_name = "users/user_form.html"
+    success_url = reverse_lazy("home")
+
+    def get_context_data(self, **kwargs):
+        context = super(UserUpdateView, self).get_context_data(**kwargs)
+        context['second_model'] = Data.objects.get(user=request.user.pk) #whatever you would like
+        return context
