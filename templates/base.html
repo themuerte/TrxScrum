@@ -24,7 +24,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle p-1" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {% if user.data.logo %}
-                            <img src="{{ user.data.logo.url }}" alt="image not found" width="30" height="24">
+                            <img src="{{ user.data.logo.url }}" alt="image not found" width="40" height="34">
                         {% else %}
                             <img src="{% static 'img/usuario.png' %}" alt="image not found" width="30" height="24">
                         {% endif %}                    
@@ -56,6 +56,7 @@
         </nav>
     {% block body%}
     {% endblock %}
+    
 </body>
 </html>
 

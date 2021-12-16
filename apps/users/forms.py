@@ -2,7 +2,6 @@ from django.forms import ModelForm, fields, models
 from django.contrib.auth.models import User
 from apps.users.models import Data
 
-
 class RegisterForm(ModelForm):
     class Meta:
         model = User
@@ -13,4 +12,3 @@ class RegisterForm2(ModelForm):
         model = Data
         fields = '__all__'
         exclude = ('user', )
-

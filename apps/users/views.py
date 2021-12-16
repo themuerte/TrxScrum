@@ -74,9 +74,16 @@ def register(request):
 class UserUpdateView(UpdateView):
     model = User
     template_name = "users/user_form.html"
+    form_class = {
+        'form':RegisterForm(),
+        'form2':RegisterForm2(),
+    }
     success_url = reverse_lazy("home")
 
-    def get_context_data(self, **kwargs):
+    """ def get_context_data(self, **kwargs):
         context = super(UserUpdateView, self).get_context_data(**kwargs)
-        context['second_model'] = Data.objects.get(user=request.user.pk) #whatever you would like
-        return context
+        data=Data.objects.get(user=self.request.user.pk)
+        context['second_form'] = RegisterForm2(initial={'phone':data.phone,'logo':data.logo})
+        print(context)
+        return context """
+    
