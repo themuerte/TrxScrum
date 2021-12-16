@@ -68,22 +68,25 @@ def register(request):
             print(form2.errors)
 
         print("POST method")
-        return redirect("login")
+        return redirect("login_v")
 
 
 class UserUpdateView(UpdateView):
     model = User
+    second_model = Data
+    fields = ['username','first_name', 'last_name', 'email']
     template_name = "users/user_form.html"
-    form_class = {
-        'form':RegisterForm(),
-        'form2':RegisterForm2(),
-    }
     success_url = reverse_lazy("home")
 
-    """ def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super(UserUpdateView, self).get_context_data(**kwargs)
         data=Data.objects.get(user=self.request.user.pk)
-        context['second_form'] = RegisterForm2(initial={'phone':data.phone,'logo':data.logo})
+        context['form2'] = RegisterForm2(initial={'phone':data.phone,'logo':data.logo})
         print(context)
-        return context """
+        return context
     
+    #mirar lo de sobre escriir el metodo post -> https://stackoverflow.com/questions/48713553/django-updateview-with-multiple-models-and-multiple-forms-dont-work
+""" def post(self, request, *args, **kwargs):
+       self.object = self.get_object
+       user_id = kwargs['pk']
+       user = self.model.objects. """

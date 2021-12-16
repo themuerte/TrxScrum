@@ -6,7 +6,7 @@ from django.urls.base import reverse_lazy
 from .models import Team, TeamUser
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .forms import Teamsform
+from .forms import Teamsform, TeamUserForm
 
 
 # Create your views here.
@@ -45,8 +45,24 @@ class TeamDeleteView(DeleteView):
 class TeamDetailView(DetailView):
     model = Team
 
+class TeamUserCreateView(CreateView):
+    model = TeamUser
+    template_name = "teams/team_user_form.html"
+    #fields = ['user','post','state']
+    form_class = TeamUserForm
+    success_url = reverse_lazy("home")
 
+    def get_form_kwargs(self):
+        kwargs = super(TeamUserCreateView, self).get_form_kwargs()
+        kwargs['team'] = self.request.team.pk
+        return kwargs
 
+"""     def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.team = self.request.team
+        return super(TeamUserCreateView, self).form_valid(form)
+     """
+    
 
 
 

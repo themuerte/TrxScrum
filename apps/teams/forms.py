@@ -7,4 +7,10 @@ class Teamsform(ModelForm):
         model = Team
         fields = '__all__'
         exclude = ['user',]
+
+class TeamUserForm(ModelForm):
+    class Meta:
+        model = TeamUser
+        fields = '__all__'
+        exclude = ['team',]
         
