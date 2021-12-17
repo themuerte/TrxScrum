@@ -20,7 +20,7 @@ class TeamUser(models.Model):
         ('DE', 'Deactivated')
     ]
     
-    user = models.ForeignKey(User, models.PROTECT, blank=False, null=False, related_name="team_userU",verbose_name="Usuario")
+    user = models.ForeignKey(User, models.CASCADE, blank=False, null=False, related_name="team_userU",verbose_name="Usuario")
     team = models.ForeignKey(Team, models.CASCADE, blank=False, null=False, related_name="team_userT",verbose_name="Equipo")
     post = models.TextField(blank=False, null=False, verbose_name="Posición")
     state = models.CharField(max_length=2, choices=state_choices, verbose_name="Estado") #cuando se cree su estado sera waiting

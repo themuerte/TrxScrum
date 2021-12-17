@@ -6,4 +6,8 @@
     {% endif %}
     <div class="card-body">
     <h5 class="card-title">{{ object.name }}</h5>
+
+    {% for member in team.member__set.all %}
+        <h6>{{ member.team.name }} -> {{ member.post }}</h6>
+    {% endfor %}
 </div>

@@ -8,8 +8,8 @@ from apps.teams.models import Team
 # Create your models here.
 
 class Project(models.Model):
-    user = models.ForeignKey(User, models.PROTECT, blank=False, null=False, related_name="projects",verbose_name="Usuario")
-    team = models.ForeignKey(Team, models.PROTECT, blank=False, null=False, verbose_name="Equip")
+    user = models.ForeignKey(User, models.CASCADE, blank=False, null=False, related_name="projects",verbose_name="Usuario")
+    team = models.ForeignKey(Team, models.CASCADE, blank=False, null=False, verbose_name="Equip")
     name = models.TextField(blank=False, verbose_name="Nombre")
     description = models.TextField(verbose_name="Descripcion")
     cost = models.DecimalField(max_digits=20, decimal_places=2, null=True,verbose_name="Costo")
@@ -19,10 +19,22 @@ class Project(models.Model):
     state = models.CharField(max_length=40, blank=False, verbose_name="Estado del proyecto")
     is_active = models.BooleanField(default=True, verbose_name="¿Equipo activo?")
 
+    def __str__(self):
+        return self.name +'->'+ self.team.name
+
 class Role(models.Model):
-    user = models.ForeignKey(User, models.PROTECT, blank=False, null=False, verbose_name="Usuario", related_name="user")
-    project = models.ForeignKey(Project, models.PROTECT, blank=False, null=False, verbose_name="Proyecto", related_name="roles")
-    role = models.CharField(max_length=40, blank=False, null=False, verbose_name="Rol en el proyecto")
+    role_choice = [
+        ('SC', 'Scrum master'),
+        ('DT', 'Development team'),
+        ('PO', 'Product owner')
+    ]
+    
+    user = models.ForeignKey(User, models.CASCADE, blank=False, null=False, verbose_name="Usuario", related_name="user")
+    project = models.ForeignKey(Project, models.CASCADE, blank=False, null=False, verbose_name="Proyecto", related_name="roles")
+    role = models.CharField(max_length=40, blank=False, null=False, choices=role_choice, verbose_name="Rol en el proyecto")
+
+    def __str__(self):
+        return self.project.name +" -> "+ self.user.username +" ("+ self.role + ")"
 
 
 class ProductBacklog(models.Model):
@@ -32,7 +44,7 @@ class ProductBacklog(models.Model):
         ('LO', 'Low')
     ]
     
-    project = models.ForeignKey(Project, models.PROTECT, blank=False, null=False, verbose_name="Proyecto")
+    project = models.ForeignKey(Project, models.CASCADE, blank=False, null=False, verbose_name="Proyecto")
     short_story = models.TextField(blank=False, verbose_name="Historia corta")
     state = models.CharField(max_length=20, blank=False, null=False, verbose_name="Estado")
     effort = models.IntegerField(blank=False, verbose_name="Esfuerzo")

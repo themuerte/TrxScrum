@@ -1,3 +1,4 @@
+from django.db.models import fields
 from django.forms import ModelForm
 from apps.projects.models import *
 from apps.teams.models import Team
@@ -12,3 +13,9 @@ class ProjectForm(ModelForm):
         user = kwargs.pop('user')
         super(ProjectForm, self).__init__(*args, **kwargs)
         self.fields['team'].queryset = Team.objects.filter(user__pk=user)
+
+class RoleForm(ModelForm):
+    class Meta:
+        model = Role
+        fields = ['user', 'role']
+        exclude = ['project',]

@@ -30,6 +30,9 @@
                         <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_project' project.pk %}"
                         onclick="loadContent(this)">Info</button>
 
+                        <button type="button" class="btn btn-info" data-urlpage="{% url 'add_member_project' project.pk %}"
+                        onclick="loadContent(this)">Add member</button>
+
                         </div>
                     </div>
                 {% endif %}

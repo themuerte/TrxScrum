@@ -44,6 +44,9 @@
                     <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_project' project.pk %}"
                     onclick="loadContent(this)">Info</button>
 
+                    <button type="button" class="btn btn-info" data-urlpage="{% url 'add_member_project' project.pk %}"
+                    onclick="loadContent(this)">Add member</button>
+
                     </div>
                 </div>
                 {% else %}
@@ -55,13 +58,15 @@
                     <p class="card-text">{{ project.description }}</p>
 
                     <h6 class="card-subtitle mb-2 text-muted">{{ projeect.state }}</h6>
-
-                    <button type="button" class="btn btn-warning" data-urlpage="{% url 'update_project' project.pk %}"
-                    onclick="loadContent(this)">Edit</button>
-                    <button type="button" class="btn btn-danger" data-urlpage="{% url 'delete_project' project.pk %}"
-                    onclick="loadContent(this)">Delete</button>
-                    <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_project' project.pk %}"
-                    onclick="loadContent(this)">Info</button>
+                    
+                    {% if project.user == user %}
+                        <button type="button" class="btn btn-warning" data-urlpage="{% url 'update_project' project.pk %}"
+                        onclick="loadContent(this)">Edit</button>
+                        <button type="button" class="btn btn-danger" data-urlpage="{% url 'delete_project' project.pk %}"
+                        onclick="loadContent(this)">Delete</button>
+                        <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_project' project.pk %}"
+                        onclick="loadContent(this)">Info</button>
+                    {% endif %}
 
                     </div>
                 </div>
@@ -103,6 +108,9 @@
                         <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_team' team.pk %}"
                         onclick="loadContent(this)">Info</button>
 
+                        <button type="button" class="btn btn-info" data-urlpage="{% url 'add_member_team' team.pk %}"
+                        onclick="loadContent(this)">Add Member</button>
+
                         </div>
                     </div>
                 {% else %}
@@ -122,6 +130,8 @@
                             onclick="loadContent(this)">Delete</button>
                             <button type="button" class="btn btn-info" data-urlpage="{% url 'detail_team' team.pk %}"
                             onclick="loadContent(this)">Info</button>
+
+
                         {% endif %}
                         </div>
                     </div>

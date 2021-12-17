@@ -6,7 +6,7 @@ from django.contrib.auth import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from apps.projects.models import Project, ProductBacklog, Role
-from apps.projects.forms import ProjectForm
+from apps.projects.forms import ProjectForm, RoleForm
 
 from apps.teams.models import Team
 
@@ -41,6 +41,11 @@ class ProjectCreation(CreateView):
     form_class = ProjectForm
     success_url = reverse_lazy("home")
     
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.user = self.request.user
+        return super(ProjectCreation, self).form_valid(form)
+
     def get_form_kwargs(self):
         kwargs = super(ProjectCreation, self).get_form_kwargs()
         kwargs['user'] = self.request.user.pk
@@ -69,3 +74,16 @@ class ProjectDeleteView(DeleteView):
     model = Project
     success_url = reverse_lazy("my_projects")
     #no se le pone template por que lo hace por convicion por que es el archivo "project_confirm_delete.html"  osea app_confirm_delete
+
+class RoleCreateView(CreateView):
+    model = Role
+    form_class = RoleForm
+    template_name = "projects/project_role_form.html"
+    success_url = reverse_lazy("home")
+
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        project = Project.objects.get(pk=self.kwargs['pk'])
+        obj.project = project
+        return super(RoleCreateView, self).form_valid(form)

@@ -45,23 +45,25 @@ class TeamDeleteView(DeleteView):
 class TeamDetailView(DetailView):
     model = Team
 
+    def get_context_data(self, **kwargs):
+        context = super(TeamDetailView, self).get_context_data(**kwargs)
+        context['member'] = TeamUser.objects.filter(team=self.request.POST.get('pk', False))
+        print(context)
+        return context
+        #no me carga los miembros
+        #https://stackoverflow.com/questions/45679155/django-detailview-get-context-data
+
 class TeamUserCreateView(CreateView):
     model = TeamUser
     template_name = "teams/team_user_form.html"
-    #fields = ['user','post','state']
     form_class = TeamUserForm
     success_url = reverse_lazy("home")
 
-    def get_form_kwargs(self):
-        kwargs = super(TeamUserCreateView, self).get_form_kwargs()
-        kwargs['team'] = self.request.team.pk
-        return kwargs
-
-"""     def form_valid(self, form):
+    def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.team = self.request.team
+        team = Team.objects.get(pk=self.kwargs['pk'])
+        obj.team = team
         return super(TeamUserCreateView, self).form_valid(form)
-     """
     
 
 

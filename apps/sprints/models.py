@@ -62,10 +62,10 @@ class TaskSprint(models.Model):
 
 class TaskSprintUser(models.Model):
     task_sprinnt = models.ForeignKey(TaskSprint, models.CASCADE, blank=False, null=False, verbose_name="Tareas")
-    user = models.ForeignKey(User, models.PROTECT, blank=False, null=False, verbose_name="Usuario")    
+    user = models.ForeignKey(User, models.CASCADE, blank=False, null=False, verbose_name="Usuario")    
 
 class SprintRetrospective(models.Model):
-    project = models.ForeignKey(Project, models.PROTECT, blank=False, null=False, verbose_name="Proyecto")
+    project = models.ForeignKey(Project, models.CASCADE, blank=False, null=False, verbose_name="Proyecto")
     date = models.DateField(blank=False, null=False, verbose_name="Fecha del sprint retrospective")
     place = models.CharField(max_length=15, blank=False, null=False, verbose_name="Lugar")
     observations = models.TextField(blank=True, verbose_name="Observaciones")
