@@ -15,6 +15,9 @@ class Sprint(models.Model):
     end_date = models.DateField(blank=True, null=True, verbose_name="Fecha de finalizacion")
     version = models.CharField(max_length=5, blank=True)
 
+    def __str__(self):
+        return str(self.number_sprint)
+
 class TaskSprint(models.Model):
     
     state_choices= [
