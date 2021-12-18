@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load bootstrap5 %}
+
+{% block dependence %}
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+{% endblock %}
+
+{% block body %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_form form2 %}
+        <input type="submit" value="Submit" class="btn btn-primary"/>
+    </form>
+    <br>
+    <a href="{% url 'password_change' %}">change password?</a>
+{% endblock %}

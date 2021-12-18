@@ -1,0 +1,8 @@
+{% load bootstrap5 %}
+<form method="post" >
+    2021-12-18
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {{ form.error }}
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+</form> 

@@ -1,0 +1,39 @@
+{% extends 'base_login.html' %}
+
+{% load bootstrap5 %}
+{% load static %}
+
+{% block dependence %}
+
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
+                <div class="col-12 title">
+                    <h1>TrxScrum</h1>
+                </div>
+                <div class="col-12">
+                    <form action="" method="post" class="form">
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Login</h5>
+                                {% bootstrap_form form %}
+                                <label><a href="{% url 'register' %}">You do not have an account</a></label>
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </div>
+                    </form>            
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
