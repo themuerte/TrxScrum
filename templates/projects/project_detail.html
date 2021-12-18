@@ -41,14 +41,14 @@
 
     <h4>Miembros del proyecto</h4>
 
-    {% for role in project.roles__set.all %}
-        <h6>{{ role.user.name }} -> {{ role.post }}</h6>
+    {% for role in project.roles.all %}
+        <h6>{{ role.user.username }} -> {{ role.post }}</h6>
     {% endfor %}
 
     <button type="button" class="btn btn-info" data-urlpage="{% url 'add_backolg' project.pk %}"
             onclick="loadContent(this)">Add Prodect Backlog</button>
 
-    
+    <!--aqui iria una amalgama de que le toca a cada quien puede ser en una tarjeta con un modal-->
 
     <!-- Modal -->
     <div class="modal fade" id="modalTemplate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTemplateLabel" aria-hidden="true">

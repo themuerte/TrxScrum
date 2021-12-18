@@ -1,11 +1,9 @@
 from django.contrib.auth.models import User
-from django.db.models import Q, fields
-from django.http import request
+from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from apps import projects
 
 from apps.projects.models import Project, ProductBacklog, Role
 from apps.projects.forms import ProjectForm, RoleForm, BacklogForm
@@ -100,11 +98,14 @@ class ProductBacklogCreateView(CreateView):
     model = ProductBacklog
     form_class = BacklogForm
     template_name = "projects/projects_backlog_form.html"
-    success_url = reverse_lazy("my_projects")
-    #success_url = reverse('detail_project', kwargs=[request.GET['pk']]) #si esto no se puede mandarlo al projectlist
+
+    def get_success_url(self):
+        return reverse('detail_project', args=[self.object.project.id]) 
 
     def form_valid(self, form):
         obj = form.save(commit=False)
         project = Project.objects.get(pk=self.kwargs['pk'])
         obj.project = project
-        return super(ProductBacklogCreateView, self).form_valid(form)
+        return super().form_valid(form)
+
+
