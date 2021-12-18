@@ -29,7 +29,7 @@
 
     <label>Tipo de proyecto</label>
     <h6>{{ project.project }}</h6>
-
+z
     <label>Creador del proyecto</label>
     <h6>{{ project.user.name }}</h6>
     
@@ -42,12 +42,21 @@
     <h4>Miembros del proyecto</h4>
 
     {% for role in project.roles.all %}
-        <h6>{{ role.user.username }} -> {{ role.post }}</h6>
+        <h6>{{ role.user.username }} -> {{ role.role }}</h6>
     {% endfor %}
 
     <button type="button" class="btn btn-info" data-urlpage="{% url 'add_backolg' project.pk %}"
             onclick="loadContent(this)">Add Prodect Backlog</button>
 
+    {% for back in project.backlogs.all %}
+        
+    {% endfor %}
+
+    <button type="button" class="btn btn-info" data-urlpage="{% url 'sprint_add' %}"
+            onclick="loadContent(this)">Add Sprint</button>
+
+    <button type="button" class="btn btn-info" data-urlpage="{% url 'task_add' %}"
+            onclick="loadContent(this)">Add Task</button>
     <!--aqui iria una amalgama de que le toca a cada quien puede ser en una tarjeta con un modal-->
 
     <!-- Modal -->

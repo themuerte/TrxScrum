@@ -44,7 +44,7 @@ class ProductBacklog(models.Model):
         ('LO', 'Low')
     ]
     
-    project = models.ForeignKey(Project, models.CASCADE, blank=False, null=False, verbose_name="Proyecto")
+    project = models.ForeignKey(Project, models.CASCADE, blank=False, null=False, verbose_name="Proyecto", related_name="backlogs")
     name = models.CharField(max_length=60, blank=False, verbose_name="Nombre")
     short_story = models.TextField(blank=False, verbose_name="Historia corta")
     state = models.CharField(max_length=20, blank=False, null=False, verbose_name="Estado")

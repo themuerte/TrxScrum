@@ -11,8 +11,8 @@ class Sprint(models.Model):
     state = models.CharField(max_length=40, blank=False, verbose_name="Estado del sprint")
     responsable = models.CharField(max_length=10, blank=False, null=False, verbose_name="Responsable del spriint") #regularmente tiene que se el scrum master
     number_sprint = models.IntegerField(blank=True, verbose_name="Numero del sprint")
-    start_date = models.DateField(blank=False, null=False, verbose_name="Fecha de inicio")
-    end_date = models.DateField(blank=False, null=False, verbose_name="Fecha de finalizacion")
+    start_date = models.DateField(blank=True, null=True, verbose_name="Fecha de inicio")
+    end_date = models.DateField(blank=True, null=True, verbose_name="Fecha de finalizacion")
     version = models.CharField(max_length=5, blank=True)
 
 class TaskSprint(models.Model):
