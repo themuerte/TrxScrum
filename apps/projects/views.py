@@ -1,14 +1,16 @@
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, fields
+from django.http import request
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from apps import projects
 
 from apps.projects.models import Project, ProductBacklog, Role
-from apps.projects.forms import ProjectForm, RoleForm
+from apps.projects.forms import ProjectForm, RoleForm, BacklogForm
 
-from apps.teams.models import Team
+from apps.teams.models import Team, TeamUser
 
 # Create your views here.
 
@@ -53,7 +55,17 @@ class ProjectCreation(CreateView):
     
 class ProjectDetailView(DetailView):
     model = Project
+    fields = '__all__'
     template_name = "projects/project_detail.html"
+""" 
+    def get_context_data(self, **kwargs):
+        context = super(ProjectDetailView, self).get_context_data(**kwargs)
+        print(context['object'])
+        context['team'] = Team.objects.filter(user__pk=self.request.user.pk)
+        context['team_user'] = TeamUser.objects.filter(project__pk=context.get('id'))
+        context['roles'] = Role.objects.filter(project__pk=self.request.GET.get['pk'])
+        
+        return context """
 
 class ProjectUpdateView(UpdateView):
     model = Project
@@ -65,10 +77,6 @@ class ProjectUpdateView(UpdateView):
         obj.user = self.request.user
         return super(ProjectUpdateView, self).form_valid(form)
     
-    def get_form_kwargs(self):
-        kwargs = super(ProjectUpdateView, self).get_form_kwargs()
-        kwargs['user'] = self.request.user.pk
-        return kwargs
 
 class ProjectDeleteView(DeleteView):
     model = Project
@@ -87,3 +95,16 @@ class RoleCreateView(CreateView):
         project = Project.objects.get(pk=self.kwargs['pk'])
         obj.project = project
         return super(RoleCreateView, self).form_valid(form)
+
+class ProductBacklogCreateView(CreateView):
+    model = ProductBacklog
+    form_class = BacklogForm
+    template_name = "projects/projects_backlog_form.html"
+    success_url = reverse_lazy("my_projects")
+    #success_url = reverse('detail_project', kwargs=[request.GET['pk']]) #si esto no se puede mandarlo al projectlist
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        project = Project.objects.get(pk=self.kwargs['pk'])
+        obj.project = project
+        return super(ProductBacklogCreateView, self).form_valid(form)

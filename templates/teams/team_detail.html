@@ -1,13 +1,35 @@
-<div class="card col-12 col-md-6 col-lg-4">
-    {% if team.logo %}
-        <img src="{{ object.logo.url }}" class="card-image-top" alt="{{object.name}}">
-    {% else %}
-        <img src="" class="card-image-top" alt="{{object.name}}">
-    {% endif %}
-    <div class="card-body">
-    <h5 class="card-title">{{ object.name }}</h5>
+{% extends 'base.html' %}
 
-    {% for member in team.member__set.all %}
-        <h6>{{ member.team.name }} -> {{ member.post }}</h6>
-    {% endfor %}
-</div>
+{% load bootstrap5 %}
+
+{% block dependence %}
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="card" style="width: 50rem;">
+        {% if team.logo %}
+            <img src="{{ team.logo.url }}" alt="{{team.name}}">
+        {% else %}
+            <img src="" class="card-image-top" alt="{{team.name}}">
+        {% endif %}
+        <div class="card-body">
+        <h5 class="card-title">{{ team.name }}</h5>
+
+        <h6 class="card-subtitle mb-2 text-muted">Creador</h6>
+        <p class="card-text">{{ team.user.name }}</p>
+
+        <h6 class="card-subtitle mb-2 text-muted">Fecha de creacion</h6>
+        <p class="card-text">{{ team.creation_date }}</p>
+
+        <h6>{{ team.team_userT.post }}</h6>
+
+        {% for member in team.team_userT__set.all %}
+            <h6>{{ member.name }} -> {{ member.post }}</h6>
+        {% endfor %}
+    </div>
+{% endblock %}
+

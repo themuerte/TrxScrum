@@ -82,7 +82,6 @@ class UserUpdateView(UpdateView):
         context = super(UserUpdateView, self).get_context_data(**kwargs)
         data=Data.objects.get(user=self.request.user.pk)
         context['form2'] = RegisterForm2(initial={'phone':data.phone,'logo':data.logo})
-        print(context)
         return context
     
     #mirar lo de sobre escriir el metodo post -> https://stackoverflow.com/questions/48713553/django-updateview-with-multiple-models-and-multiple-forms-dont-work

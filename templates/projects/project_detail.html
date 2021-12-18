@@ -1,12 +1,87 @@
-<div class="card col-12 col-md-6 col-lg-4">
-    <div class="card-body">
-    <h5 class="card-title">{{ project.name }}</h5>
+{% extends 'base.html' %}
+
+{% load bootstrap5 %}
+
+{% block dependence %}
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+{% endblock %}
+
+{% block body %}
+    <h3>Project</h3>
+
+    <label>Nombre</label>
+    <h5>{{ project.name }}</h5>
     
-    <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+    <h6>Description</h6>
     <p class="card-text">{{ project.description }}</p>
+    
+    <label>Estado</label>
+    <h6>{{ project.state }}</h6>
 
-    <h6 class="card-subtitle mb-2 text-muted">{{ projeect.state }}</h6>
+    <label>Costo</label>
+    <h6>{{ project.cost }}</h6>
+
+    <label>Notas</label>
+    <p>{{ project.notes }}</p>
+
+    <label>Tipo de proyecto</label>
+    <h6>{{ project.project }}</h6>
+
+    <label>Creador del proyecto</label>
+    <h6>{{ project.user.name }}</h6>
+    
+    <label>Fecha de creacion</label>
+    <h6>{{ project.creation_date }}</h6>
+
+    <h3>Equipo</h3>
+    <h6>{{ project.team.name }}</h6>
+
+    <h4>Miembros del proyecto</h4>
+
+    {% for role in project.roles__set.all %}
+        <h6>{{ role.user.name }} -> {{ role.post }}</h6>
+    {% endfor %}
+
+    <button type="button" class="btn btn-info" data-urlpage="{% url 'add_backolg' project.pk %}"
+            onclick="loadContent(this)">Add Prodect Backlog</button>
+
     
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalTemplate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTemplateLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="contenido-modal-template">
+            
+            </div>
+            
+        </div>
+        </div>
     </div>
-</div>
+
+    <script>
+        const myModal = new bootstrap.Modal(document.getElementById('modalTemplate'), [])
+        const contentModel = document.querySelector("#contenido-modal-template")
+        const loadContent= (element) =>{
+            Swal.showLoading()
+            let url = element.dataset.urlpage;
+            fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                contentModel.innerHTML = data
+                const form = contentModel.querySelector("form")
+                if(form){form.setAttribute("action", url)}
+                Swal.close()
+                myModal.show()
+            });
+        }
+    </script>
+        
+{% endblock %}
+

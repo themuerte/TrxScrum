@@ -40,12 +40,16 @@ class Role(models.Model):
 class ProductBacklog(models.Model):
     priority_choices = [
         ('HI', 'High'),
-        ('ME', 'Mdium'),
+        ('ME', 'Medium'),
         ('LO', 'Low')
     ]
     
     project = models.ForeignKey(Project, models.CASCADE, blank=False, null=False, verbose_name="Proyecto")
+    name = models.CharField(max_length=60, blank=False, verbose_name="Nombre")
     short_story = models.TextField(blank=False, verbose_name="Historia corta")
     state = models.CharField(max_length=20, blank=False, null=False, verbose_name="Estado")
     effort = models.IntegerField(blank=False, verbose_name="Esfuerzo")
     priority = models.CharField(max_length=5, choices=priority_choices, blank=False, verbose_name="Prioridad")
+
+    def __str__(self):
+        return self.name

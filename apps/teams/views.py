@@ -47,8 +47,7 @@ class TeamDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TeamDetailView, self).get_context_data(**kwargs)
-        context['member'] = TeamUser.objects.filter(team=self.request.POST.get('pk', False))
-        print(context)
+        context['member'] = TeamUser.objects.filter(team=self.request.GET.get('pk', False))
         return context
         #no me carga los miembros
         #https://stackoverflow.com/questions/45679155/django-detailview-get-context-data
